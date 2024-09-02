@@ -27,10 +27,12 @@ public:
     // Resets the ball to its initial position in the center.
     void reset();
 
+    sf::Vector2f getVelocity();
+
 private:
     sf::CircleShape ball;          // The SFML circle shape representing the ball.
     sf::Vector2f ballVelocity;     // The velocity of the ball in 2D space.
-    float speed = 300.0f;          // Speed of the ball.
+    float speed = 450.0f;          // Speed of the ball.
 
     // New variables to replace magic numbers
     const float radius = 10.0f;            // Radius of the ball

@@ -49,7 +49,7 @@ void MainMenu::onPlayerVsPlayerClicked() {
 }
 
 void MainMenu::onVsAiClicked() {
-    std::cout << "Vs AI Button Clicked!" << std::endl;
+    gameState = GameState::PlayingVsAI;
 }
 
 void MainMenu::onQuitClicked() {

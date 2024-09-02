@@ -83,9 +83,18 @@ void Game::processEvents() {
 
 // Updates the positions and states of the paddles and ball
 void Game::update(float deltaTime) {
-    if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI) {
+
+    if (gameState == GameState::PlayingPvP) {
         player1.update(deltaTime);
         player2.update(deltaTime);
+    }
+    else if (gameState == GameState::PlayingVsAI) {
+        player1.update(deltaTime);  // Player controls the left paddle
+        player2.updateAI(deltaTime, ball, windowSize.x);  // AI controls the right paddle
+    }
+
+    if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI)
+    {
         ball.update(deltaTime);
 
         // Check for collisions between the ball and the paddles
@@ -95,6 +104,7 @@ void Game::update(float deltaTime) {
         // Update score based on ball position
         updateScore();
     }
+    
 
 }
 
@@ -142,8 +152,7 @@ void Game::updateScore() {
         gameOverScreen->setWinner(player1Score >= 5 ? 1 : 2);
         resetPositions();
         resetScores();
-        
-        
+                
     }
 }
 

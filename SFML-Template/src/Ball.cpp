@@ -37,3 +37,10 @@ void Ball::reset() {
     ball.setPosition(initialPosition);     // Reset to the initial position
     ballVelocity = initialVelocity;        // Reset the ball's velocity to the initial value
 }
+
+sf::Vector2f Ball::getVelocity()
+{
+    return ballVelocity;
+}
+
+
