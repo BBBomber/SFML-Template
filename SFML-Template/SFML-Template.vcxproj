@@ -153,6 +153,9 @@
     <ClInclude Include="includes\MainMenu.h" />
     <ClInclude Include="includes\Paddle.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\glow_shader.frag" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

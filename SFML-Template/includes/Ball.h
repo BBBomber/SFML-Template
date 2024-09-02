@@ -16,7 +16,7 @@ public:
     void update(float deltaTime);
 
     // Renders the ball onto the provided window.
-    void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window, sf::Shader* shader = nullptr); // Add shader parameter with default null
 
     // Checks for collisions between the ball and the paddle.
     void checkCollision(Paddle& paddle, AudioManager& audioManager);
@@ -28,6 +28,8 @@ public:
     void reset();
 
     sf::Vector2f getVelocity();
+
+    sf::CircleShape& getShape();
 
 private:
     sf::CircleShape ball;          // The SFML circle shape representing the ball.

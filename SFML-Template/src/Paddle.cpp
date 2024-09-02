@@ -1,6 +1,7 @@
 #include "../includes/Paddle.h"
 #include "../includes/Ball.h"
 #include <cstdlib>  // For std::rand()
+#include <iostream>
 
 Paddle::Paddle(float x, float y, sf::Keyboard::Key upKey, sf::Keyboard::Key downKey)
     : upKey(upKey), downKey(downKey) {
@@ -17,8 +18,14 @@ void Paddle::update(float deltaTime) {
     }
 }
 
-void Paddle::render(sf::RenderWindow& window) {
-    window.draw(paddle);
+void Paddle::render(sf::RenderWindow& window, sf::Shader* shader) {
+    if (shader) {
+        window.draw(paddle, shader); // Draw with shader
+    }
+    else {
+        window.draw(paddle); // Draw without shader
+        
+    }
 }
 
 sf::FloatRect Paddle::getBounds() {
@@ -78,4 +85,9 @@ void Paddle::updateAI(float deltaTime, Ball& ball, float windowWidth) {
         paddle.setPosition(paddle.getPosition().x, windowHeight - paddle.getSize().y);
     }
 
+}
+
+sf::RectangleShape& Paddle::getShape()
+{
+    return paddle;
 }

@@ -18,8 +18,13 @@ void Ball::update(float deltaTime) {
 
 }
 
-void Ball::render(sf::RenderWindow& window) {
-    window.draw(ball);
+void Ball::render(sf::RenderWindow& window, sf::Shader* shader) {
+    if (shader) {
+        window.draw(ball, shader); // Draw with shader
+    }
+    else {
+        window.draw(ball); // Draw without shader
+    }
 }
 
 void Ball::checkCollision(Paddle& paddle, AudioManager& audioManager) {
@@ -41,6 +46,11 @@ void Ball::reset() {
 sf::Vector2f Ball::getVelocity()
 {
     return ballVelocity;
+}
+
+sf::CircleShape& Ball::getShape()
+{
+    return ball;
 }
 
 

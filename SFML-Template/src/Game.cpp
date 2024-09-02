@@ -19,6 +19,17 @@ Game::Game()
         exit(EXIT_FAILURE); // Exit if the font cannot be loaded
     }
 
+    // Load the glow shader
+    if (!glowShader.loadFromFile(AssetPaths::glowShaderPath, sf::Shader::Fragment)) {
+        std::cerr << "Failed to load glow shader" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialize shader uniforms
+    glowShader.setUniform("glowColor", sf::Glsl::Vec3(0.22f, 1.0f, 0.08f)); // green
+    glowShader.setUniform("glowStrength", 5.0f);
+    glowShader.setUniform("resolution", sf::Glsl::Vec2(windowSize.x, windowSize.y));
+
     // Now that the font is loaded, initialize the main menu
     mainMenu = new MainMenu(mainFont, gameState);
 
@@ -117,9 +128,10 @@ void Game::render() {
     }
     else if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI) {
         drawMiddleLine(); // Draw the middle line
-        player1.render(window);    // Draw player 1's paddle
-        player2.render(window);    // Draw player 2's paddle
-        ball.render(window);       // Draw the ball
+        // Render paddles and ball with the glow shader
+        player1.render(window, &glowShader);
+        player2.render(window, &glowShader);
+        ball.render(window, &glowShader);
         window.draw(player1ScoreText); // Draw player 1's score
         window.draw(player2ScoreText); // Draw player 2's score
     }

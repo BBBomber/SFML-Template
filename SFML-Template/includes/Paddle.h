@@ -10,12 +10,14 @@ public:
     Paddle(float x, float y, sf::Keyboard::Key upKey, sf::Keyboard::Key downKey);
 
     void update(float deltaTime);
-    void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window, sf::Shader* shader = nullptr); // Add shader parameter with default null
     sf::FloatRect getBounds();
     void move(float dx, float dy);
     void setPosition(sf::Vector2f newPos);
 
     void updateAI(float deltaTime, Ball& ball, float windowWidth); // Method for AI control
+
+    sf::RectangleShape& getShape();
 
 private:
 

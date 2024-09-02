@@ -24,6 +24,8 @@ private:
     void initializeScoreText(); // Initializes the score text
     void resetScores();
 
+    void applyGlowEffect();
+
     // Window properties
     sf::Vector2u windowSize = { 800, 600 };  // Window size (width, height)
     std::string windowTitle = "Pong - PvP Mode";  // Window title
@@ -54,5 +56,8 @@ private:
     int player2Score = 0;
     sf::Text player1ScoreText;
     sf::Text player2ScoreText;
+
+
+    sf::Shader glowShader;
 };
 

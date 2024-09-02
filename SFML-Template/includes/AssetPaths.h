@@ -13,7 +13,8 @@ public:
     // Font paths
     static const std::string mainFont;
 
-    // Additional asset paths can be added here
+    // shaders
+    static const std::string glowShaderPath;
 
 private:
     // Prevent instantiation of this static class (private constructor)
