@@ -14,5 +14,9 @@ public:
 private:
     std::vector<Button> buttons;
     GameState& gameState;  // Reference to game state to modify it
+
+    void onPlayerVsPlayerClicked();  // Handler for Player vs Player button
+    void onVsAiClicked();            // Handler for Vs AI button
+    void onQuitClicked();            // Handler for Quit button
 };
 
