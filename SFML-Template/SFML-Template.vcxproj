@@ -136,12 +136,15 @@
     <ClCompile Include="src\AssetPath.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\AssetPaths.h" />
     <ClInclude Include="includes\AudioManager.h" />
     <ClInclude Include="includes\Ball.h" />
+    <ClInclude Include="includes\Game.h" />
+    <ClInclude Include="includes\GameState.h" />
     <ClInclude Include="includes\Paddle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
