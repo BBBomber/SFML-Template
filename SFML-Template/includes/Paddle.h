@@ -23,4 +23,8 @@ private:
     sf::RectangleShape paddle;    // The SFML rectangle shape representing the paddle.
     float paddleSpeed = 400.0f;   // Speed of the paddle.
     sf::Keyboard::Key upKey, downKey; // Keys for moving the paddle up and down.
+
+    // New variables to replace magic numbers
+    const sf::Vector2f size = { 10.0f, 100.0f };  // Size of the paddle
+    const float windowHeight = 600.0f;          // Window height for boundary checking
 };
