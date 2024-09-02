@@ -5,10 +5,12 @@
 #include "Paddle.h"
 #include "AudioManager.h"
 #include "GameState.h"
+#include "../includes/MainMenu.h"
 
 class Game {
 public:
     Game();              // Constructor to initialize the game
+    ~Game();             // Destructor to clean up resources
     void run();          // Runs the main game loop
 
 private:
@@ -35,6 +37,9 @@ private:
     AudioManager audioManager;
     sf::Clock clock;
     GameState gameState;
+
+    sf::Font mainFont;    // Font used for the game
+    MainMenu* mainMenu;   // Pointer to MainMenu instance
 
     sf::RectangleShape middleLine; // Variable for the middle line
 };
