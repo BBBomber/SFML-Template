@@ -20,6 +20,10 @@ private:
     void initializeTitle(const sf::Font& font);
     void initializeButtons(const sf::Font& font);
 
+    void onPlayerVsPlayerClicked();  // Handler for Player vs Player button
+    void onVsAiClicked();            // Handler for Vs AI button
+    void onQuitClicked();            // Handler for Quit button
+
     sf::Texture backgroundTexture; // Texture for the background image
     sf::Sprite backgroundSprite;   // Sprite to display the background image
     sf::Text titleText;            // Text for the title
