@@ -15,6 +15,7 @@ private:
     void processEvents(); // Handles input and window events
     void update(float deltaTime); // Updates game objects based on elapsed time
     void render();        // Renders the game objects on the window
+    void drawMiddleLine(); // Draws the middle line on the screen
 
     // Window properties
     sf::Vector2u windowSize = { 800, 600 };  // Window size (width, height)
@@ -34,5 +35,7 @@ private:
     AudioManager audioManager;
     sf::Clock clock;
     GameState gameState;
+
+    sf::RectangleShape middleLine; // Variable for the middle line
 };
 

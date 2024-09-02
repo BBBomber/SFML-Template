@@ -10,6 +10,11 @@ Game::Game()
     gameState(GameState::PlayingPvP) // Set default game state to PlayingPvP
 {
     window.setFramerateLimit(60); // Set the frame rate limit
+
+    // Initialize the middle line
+    middleLine.setSize(sf::Vector2f(2.0f, static_cast<float>(windowSize.y)));
+    middleLine.setPosition(windowSize.x / 2.0f, 0.0f);
+    middleLine.setFillColor(sf::Color::White);
 }
 
 // The main game loop, which keeps the window open and updates the game state
@@ -45,8 +50,19 @@ void Game::update(float deltaTime) {
 // Renders the paddles and the ball on the window
 void Game::render() {
     window.clear();                // Clear the window
+
+    if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI) {
+        // Draw the middle line
+        drawMiddleLine();
+    }
+
     player1.render(window);        // Draw player 1's paddle
     player2.render(window);        // Draw player 2's paddle
     ball.render(window);           // Draw the ball
     window.display();              // Display the contents of the window on the screen
+}
+
+// Draws the middle line on the screen
+void Game::drawMiddleLine() {
+    window.draw(middleLine);
 }
