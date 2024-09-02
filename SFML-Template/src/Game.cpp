@@ -25,12 +25,29 @@ Game::Game()
     middleLine.setSize(sf::Vector2f(2.0f, static_cast<float>(windowSize.y)));
     middleLine.setPosition(windowSize.x / 2.0f, 0.0f);
     middleLine.setFillColor(sf::Color::White);
+
+    // Initialize the score texts
+    initializeScoreText();
+
+    updateScore(); // Initial score update
 }
 
 
 // Destructor to clean up the MainMenu pointer
 Game::~Game() {
     delete mainMenu;
+}
+
+void Game::initializeScoreText() {
+    player1ScoreText.setFont(mainFont);
+    player1ScoreText.setCharacterSize(36);
+    player1ScoreText.setFillColor(sf::Color::White);
+    player1ScoreText.setPosition(200.0f, 20.0f); // Position on the left side
+
+    player2ScoreText.setFont(mainFont);
+    player2ScoreText.setCharacterSize(36);
+    player2ScoreText.setFillColor(sf::Color::White);
+    player2ScoreText.setPosition(600.0f, 20.0f); // Position on the right side
 }
 
 // The main game loop, which keeps the window open and updates the game state
@@ -65,6 +82,9 @@ void Game::update(float deltaTime) {
     // Check for collisions between the ball and the paddles
     ball.checkCollision(player1, audioManager);
     ball.checkCollision(player2, audioManager);
+
+    // Update score based on ball position
+    updateScore();
 }
 
 // Renders the paddles and the ball on the window
@@ -79,9 +99,36 @@ void Game::render() {
         player1.render(window);    // Draw player 1's paddle
         player2.render(window);    // Draw player 2's paddle
         ball.render(window);       // Draw the ball
+        window.draw(player1ScoreText); // Draw player 1's score
+        window.draw(player2ScoreText); // Draw player 2's score
     }
 
     window.display(); // Display the contents of the window on the screen
+}
+
+// Updates the score based on the ball's position
+void Game::updateScore() {
+    if (ball.getBounds().left < 0) {
+        // Ball is out of bounds on player 1's side
+        player2Score++;
+        resetPositions();
+    }
+    else if (ball.getBounds().left + ball.getBounds().width > windowSize.x) {
+        // Ball is out of bounds on player 2's side
+        player1Score++;
+        resetPositions();
+    }
+
+    // Update the score text
+    player1ScoreText.setString(std::to_string(player1Score));
+    player2ScoreText.setString(std::to_string(player2Score));
+}
+
+// Resets the positions of the ball and paddles
+void Game::resetPositions() {
+    ball.reset(); // Reset the ball to the center
+    player1.setPosition(player1Position); // Reset player 1's position
+    player2.setPosition(player2Position); // Reset player 2's position
 }
 
 // Draws the middle line on the screen

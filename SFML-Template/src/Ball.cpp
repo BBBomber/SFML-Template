@@ -16,10 +16,6 @@ void Ball::update(float deltaTime) {
         ballVelocity.y = -ballVelocity.y;
     }
 
-    // Check if the ball goes out of bounds (left or right)
-    if (ball.getPosition().x < 0 || ball.getPosition().x > windowWidth) {  // Window width
-        reset();
-    }
 }
 
 void Ball::render(sf::RenderWindow& window) {

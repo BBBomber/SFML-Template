@@ -19,7 +19,10 @@ public:
     // Moves the paddle by the given dx and dy values.
     void move(float dx, float dy);
 
+    void setPosition(sf::Vector2f newPos);
+
 private:
+
     sf::RectangleShape paddle;    // The SFML rectangle shape representing the paddle.
     float paddleSpeed = 400.0f;   // Speed of the paddle.
     sf::Keyboard::Key upKey, downKey; // Keys for moving the paddle up and down.

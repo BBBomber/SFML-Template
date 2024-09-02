@@ -18,6 +18,9 @@ private:
     void update(float deltaTime); // Updates game objects based on elapsed time
     void render();        // Renders the game objects on the window
     void drawMiddleLine(); // Draws the middle line on the screen
+    void updateScore();   // Updates the score based on ball position
+    void resetPositions(); // Resets the positions of the ball and paddles
+    void initializeScoreText(); // Initializes the score text
 
     // Window properties
     sf::Vector2u windowSize = { 800, 600 };  // Window size (width, height)
@@ -42,5 +45,11 @@ private:
     MainMenu* mainMenu;   // Pointer to MainMenu instance
 
     sf::RectangleShape middleLine; // Variable for the middle line
+
+    // Score-related members
+    int player1Score = 0;
+    int player2Score = 0;
+    sf::Text player1ScoreText;
+    sf::Text player2ScoreText;
 };
 

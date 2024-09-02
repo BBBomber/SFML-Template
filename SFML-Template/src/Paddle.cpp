@@ -26,3 +26,8 @@ sf::FloatRect Paddle::getBounds() {
 void Paddle::move(float dx, float dy) {
     paddle.move(dx, dy);
 }
+
+void Paddle::setPosition(sf::Vector2f newPos)
+{
+    paddle.setPosition(newPos);
+}
