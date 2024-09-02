@@ -6,6 +6,7 @@
 #include "AudioManager.h"
 #include "GameState.h"
 #include "../includes/MainMenu.h"
+#include "../includes/GameOver.h"
 
 class Game {
 public:
@@ -21,6 +22,7 @@ private:
     void updateScore();   // Updates the score based on ball position
     void resetPositions(); // Resets the positions of the ball and paddles
     void initializeScoreText(); // Initializes the score text
+    void resetScores();
 
     // Window properties
     sf::Vector2u windowSize = { 800, 600 };  // Window size (width, height)
@@ -43,6 +45,7 @@ private:
 
     sf::Font mainFont;    // Font used for the game
     MainMenu* mainMenu;   // Pointer to MainMenu instance
+    GameOver* gameOverScreen;
 
     sf::RectangleShape middleLine; // Variable for the middle line
 

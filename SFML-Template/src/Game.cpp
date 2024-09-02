@@ -9,7 +9,8 @@ Game::Game()
     player2(player2Position.x, player2Position.y, sf::Keyboard::Up, sf::Keyboard::Down),
     ball(ballPosition.x, ballPosition.y),
     gameState(GameState::MainMenu),  // Start in the main menu state
-    mainMenu(nullptr)  // Initialize pointer to null
+    mainMenu(nullptr),  // Initialize pointer to null
+    gameOverScreen(nullptr)  // Initialize pointer to null
 {
     window.setFramerateLimit(60); // Set the frame rate limit
 
@@ -21,6 +22,8 @@ Game::Game()
     // Now that the font is loaded, initialize the main menu
     mainMenu = new MainMenu(mainFont, gameState);
 
+    gameOverScreen = new GameOver(mainFont, gameState);
+
     // Initialize the middle line
     middleLine.setSize(sf::Vector2f(2.0f, static_cast<float>(windowSize.y)));
     middleLine.setPosition(windowSize.x / 2.0f, 0.0f);
@@ -29,13 +32,15 @@ Game::Game()
     // Initialize the score texts
     initializeScoreText();
 
-    updateScore(); // Initial score update
+    //updateScore(); // Initial score update
 }
 
 
 // Destructor to clean up the MainMenu pointer
 Game::~Game() {
     delete mainMenu;
+    delete gameOverScreen;
+    
 }
 
 void Game::initializeScoreText() {
@@ -70,21 +75,27 @@ void Game::processEvents() {
         if (gameState == GameState::MainMenu && mainMenu) {
             mainMenu->handleEvent(event, window);
         }
+        else if (gameState == GameState::GameOver && gameOverScreen) {
+            gameOverScreen->handleEvent(event, window);
+        }
     }
 }
 
 // Updates the positions and states of the paddles and ball
 void Game::update(float deltaTime) {
-    player1.update(deltaTime);
-    player2.update(deltaTime);
-    ball.update(deltaTime);
+    if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI) {
+        player1.update(deltaTime);
+        player2.update(deltaTime);
+        ball.update(deltaTime);
 
-    // Check for collisions between the ball and the paddles
-    ball.checkCollision(player1, audioManager);
-    ball.checkCollision(player2, audioManager);
+        // Check for collisions between the ball and the paddles
+        ball.checkCollision(player1, audioManager);
+        ball.checkCollision(player2, audioManager);
 
-    // Update score based on ball position
-    updateScore();
+        // Update score based on ball position
+        updateScore();
+    }
+
 }
 
 // Renders the paddles and the ball on the window
@@ -101,6 +112,9 @@ void Game::render() {
         ball.render(window);       // Draw the ball
         window.draw(player1ScoreText); // Draw player 1's score
         window.draw(player2ScoreText); // Draw player 2's score
+    }
+    else if (gameState == GameState::GameOver && gameOverScreen) {
+        gameOverScreen->render(window);
     }
 
     window.display(); // Display the contents of the window on the screen
@@ -122,6 +136,21 @@ void Game::updateScore() {
     // Update the score text
     player1ScoreText.setString(std::to_string(player1Score));
     player2ScoreText.setString(std::to_string(player2Score));
+
+    if (player1Score >= 5 || player2Score >= 5) {
+        gameState = GameState::GameOver;
+        gameOverScreen->setWinner(player1Score >= 5 ? 1 : 2);
+        resetPositions();
+        resetScores();
+        
+        
+    }
+}
+
+void Game::resetScores()
+{
+    player1Score = 0;
+    player2Score = 0;
 }
 
 // Resets the positions of the ball and paddles
