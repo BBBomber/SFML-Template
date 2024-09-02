@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "includes/Ball.h"
 #include "includes/Paddle.h"
+#include "includes/AudioManager.h"
 
 int main() {
     // Create a window with a resolution of 800x600 and title "Pong - PvP Mode"
@@ -13,6 +14,7 @@ int main() {
     Paddle player1(10, 250, sf::Keyboard::W, sf::Keyboard::S); // Player 1 uses W and S keys for movement
     Paddle player2(780, 250, sf::Keyboard::Up, sf::Keyboard::Down); // Player 2 uses Up and Down arrow keys
     Ball ball(400, 300); // Ball starts at the center of the screen
+    AudioManager audioManager;
 
     sf::Clock clock; // Clock to keep track of time between frames for frame rate independence
 
@@ -35,8 +37,8 @@ int main() {
         ball.update(deltaTime);
 
         // Check for collisions between the ball and the paddles
-        ball.checkCollision(player1);
-        ball.checkCollision(player2);
+        ball.checkCollision(player1, audioManager);
+        ball.checkCollision(player2, audioManager);
 
         // Clear the window before drawing
         window.clear();

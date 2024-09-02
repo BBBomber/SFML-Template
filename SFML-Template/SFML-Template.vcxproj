@@ -133,10 +133,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\AssetPath.cpp" />
+    <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\AssetPaths.h" />
+    <ClInclude Include="includes\AudioManager.h" />
     <ClInclude Include="includes\Ball.h" />
     <ClInclude Include="includes\Paddle.h" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "../includes/Ball.h"
 #include "../includes/Paddle.h"
+#include "../includes/AudioManager.h"
 
 Ball::Ball(float x, float y) {
     ball.setRadius(radius);                  // Use the radius variable
@@ -25,9 +26,10 @@ void Ball::render(sf::RenderWindow& window) {
     window.draw(ball);
 }
 
-void Ball::checkCollision(Paddle& paddle) {
+void Ball::checkCollision(Paddle& paddle, AudioManager& audioManager) {
     if (ball.getGlobalBounds().intersects(paddle.getBounds())) {
         ballVelocity.x = -ballVelocity.x;  // Reverse the horizontal velocity of the ball
+        audioManager.playBounceSound();
     }
 }
 

@@ -5,6 +5,7 @@
 // Forward declaration of the Paddle class
 // This allows the Ball class to reference the Paddle class without needing to include Paddle's header file.
 class Paddle;
+class AudioManager;
 
 class Ball {
 public:
@@ -18,7 +19,7 @@ public:
     void render(sf::RenderWindow& window);
 
     // Checks for collisions between the ball and the paddle.
-    void checkCollision(Paddle& paddle);
+    void checkCollision(Paddle& paddle, AudioManager& audioManager);
 
     // Returns the bounding rectangle of the ball for collision detection. A square around the ball
     sf::FloatRect getBounds();
