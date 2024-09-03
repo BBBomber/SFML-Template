@@ -27,7 +27,7 @@ Game::Game()
 
     // Initialize shader uniforms
     glowShader.setUniform("glowColor", sf::Glsl::Vec3(0.22f, 1.0f, 0.08f)); // green
-    glowShader.setUniform("glowStrength", 5.0f);
+    glowShader.setUniform("glowStrength", 0.6f);
     glowShader.setUniform("resolution", sf::Glsl::Vec2(windowSize.x, windowSize.y));
 
     // Now that the font is loaded, initialize the main menu
@@ -131,6 +131,10 @@ void Game::render() {
         // Render paddles and ball with the glow shader
         player1.render(window, &glowShader);
         player2.render(window, &glowShader);
+        // Set shader uniforms and render the ball
+        sf::Vector2f ballCenter = ball.getShape().getPosition() + sf::Vector2f(ball.getShape().getRadius(), ball.getShape().getRadius());
+        glowShader.setUniform("shapeCenter", sf::Glsl::Vec2(ballCenter.x, ballCenter.y));
+        glowShader.setUniform("shapeRadius", ball.getShape().getRadius());
         ball.render(window, &glowShader);
         window.draw(player1ScoreText); // Draw player 1's score
         window.draw(player2ScoreText); // Draw player 2's score
