@@ -49,6 +49,10 @@ private:
 
     sf::RectangleShape middleLine; // Variable for the middle line
 
+    // Shader and RenderTexture for post-processing effects
+    sf::Shader scanlineShader;     // Scanline shader
+    sf::RenderTexture renderTexture; // RenderTexture for the whole screen
+
     // Score-related members
     int player1Score = 0;
     int player2Score = 0;

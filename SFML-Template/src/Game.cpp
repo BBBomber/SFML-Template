@@ -19,6 +19,15 @@ Game::Game()
         exit(EXIT_FAILURE); // Exit if the font cannot be loaded
     }
 
+    // Load the scanline shader
+    if (!scanlineShader.loadFromFile(AssetPaths::basicScanlineShader, sf::Shader::Fragment)) {
+        std::cerr << "Failed to load scanline shader" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialize shader uniforms
+    scanlineShader.setUniform("resolution", sf::Glsl::Vec2(windowSize.x, windowSize.y));
+
     // Now that the font is loaded, initialize the main menu
     mainMenu = new MainMenu(mainFont, gameState);
 
@@ -72,6 +81,20 @@ void Game::processEvents() {
             window.close(); // Close the window if the close button is clicked
         }
 
+        // Handle window resizing
+        if (event.type == sf::Event::Resized) {
+            sf::Vector2u newSize = window.getSize();
+            windowSize.x = newSize.x;
+            windowSize.y = newSize.y;
+
+            //// Update the viewport to the new window size
+            //sf::FloatRect visibleArea(0, 0, newSize.x, newSize.y);
+            //window.setView(sf::View(visibleArea));
+
+            // Update the shader's resolution uniform with the new size
+            scanlineShader.setUniform("resolution", sf::Glsl::Vec2(newSize.x, newSize.y));
+        }
+
         if (gameState == GameState::MainMenu && mainMenu) {
             mainMenu->handleEvent(event, window);
         }
@@ -110,7 +133,7 @@ void Game::update(float deltaTime) {
 
 // Renders the paddles and the ball on the window
 void Game::render() {
-    window.clear(); // Clear the window
+    window.clear(sf::Color(128, 128, 128, 255)); // Clear the window
 
     if (gameState == GameState::MainMenu && mainMenu) {
         mainMenu->render(window); // Render the main menu
@@ -126,6 +149,20 @@ void Game::render() {
     else if (gameState == GameState::GameOver && gameOverScreen) {
         gameOverScreen->render(window);
     }
+
+    sf::Texture windowTexture;
+    windowTexture.create(window.getSize().x, window.getSize().y);
+    windowTexture.update(window);
+
+    // Create a sprite from the captured texture
+    sf::Sprite sprite(windowTexture);
+
+    // Set shader uniforms
+    scanlineShader.setUniform("resolution", sf::Glsl::Vec2(windowSize.x, windowSize.y));
+    scanlineShader.setUniform("time", clock.getElapsedTime().asSeconds());
+    scanlineShader.setUniform("texture", windowTexture);
+
+    window.draw(sprite, &scanlineShader);
 
     window.display(); // Display the contents of the window on the screen
 }

@@ -153,6 +153,9 @@
     <ClInclude Include="includes\MainMenu.h" />
     <ClInclude Include="includes\Paddle.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\shaders\Scanline.frag" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

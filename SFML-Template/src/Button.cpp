@@ -33,8 +33,11 @@ void Button::render(sf::RenderWindow& window) {
 
 void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window) {
     if (event.type == sf::Event::MouseButtonPressed) {
-        if (buttonShape.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window)))) {
-            onClick();
+        sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+
+        if (buttonShape.getGlobalBounds().contains(worldPos)) {
+            onClick(); // Trigger the button's action
         }
     }
 }

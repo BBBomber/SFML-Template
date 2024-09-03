@@ -14,6 +14,8 @@ public:
     static const std::string mainFont;
 
     // Additional asset paths can be added here
+    static const std::string basicScanlineShader;
+
 
 private:
     // Prevent instantiation of this static class (private constructor)
