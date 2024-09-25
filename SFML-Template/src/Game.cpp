@@ -118,7 +118,7 @@ void Game::update(float deltaTime) {
 
     if (gameState == GameState::PlayingPvP || gameState == GameState::PlayingVsAI)
     {
-        ball.update(deltaTime);
+        ball.update(deltaTime, window);
 
         // Check for collisions between the ball and the paddles
         ball.checkCollision(player1, audioManager);
@@ -202,8 +202,7 @@ void Game::resetScores()
 // Resets the positions of the ball and paddles
 void Game::resetPositions() {
     ball.reset(); // Reset the ball to the center
-    player1.setPosition(player1Position); // Reset player 1's position
-    player2.setPosition(player2Position); // Reset player 2's position
+
 }
 
 // Draws the middle line on the screen

@@ -13,7 +13,7 @@ public:
     Ball(float x, float y);
 
     // Updates the ball's data every second
-    void update(float deltaTime);
+    void update(float deltaTime, const sf::RenderWindow& window);
 
     // Renders the ball onto the provided window.
     void render(sf::RenderWindow& window);
@@ -32,7 +32,7 @@ public:
 private:
     sf::CircleShape ball;          // The SFML circle shape representing the ball.
     sf::Vector2f ballVelocity;     // The velocity of the ball in 2D space.
-    float speed = 450.0f;          // Speed of the ball.
+    float speed = 500.0f;          // Speed of the ball.
 
     // New variables to replace magic numbers
     const float radius = 10.0f;            // Radius of the ball
@@ -40,4 +40,6 @@ private:
     const sf::Vector2f initialVelocity = { -1.0f, -1.0f };    // Initial velocity of the ball
     const float windowWidth = 800.0f;      // Width of the game window
     const float windowHeight = 600.0f;     // Height of the game window
+
+    void checkWindowCollision(const sf::RenderWindow& window);
 };
